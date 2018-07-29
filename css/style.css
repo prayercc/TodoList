@@ -1,0 +1,126 @@
+[v-cloak]{ display:none}
+body {
+  color: #222527;
+  font-family: Helvetica, Arial, "PingFang SC", "Noto Sans", Roboto, "Microsoft Yahei", sans-serif;
+  letter-spacing: .03em;
+}
+
+header {
+  display: block;
+  font-family: 'Axure Handwriting', 'STLiti', 'STXinwei';
+  margin-top: 3%;
+  color: #444;
+  text-align: center;
+  font-size: 40px;
+}
+
+#detail ul {
+  margin: 15px auto;
+  padding: 0;
+  text-align: center;
+}
+
+#detail li {
+  display: inline-block;
+  margin: 0 40px;
+  list-style: none;
+}
+
+#detail li span {
+  padding: 4px 12px;
+  color: #c7254e;
+  border-radius: 4px;
+  background-color: #f9f2f4;
+}
+
+.listBox {
+  display: -webkit-flex;
+  /* Safari */
+  display: flex;
+  flex-flow:row wrap;
+  /* flex-wrap: wrap-reverse; */
+  width: 80%;
+  margin: 30px auto;
+}
+
+.listItem {
+  position: relative;
+  display: inline-block;
+  width: 50%;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.listItem:hover {
+  background-color: #f9f2f4;
+  cursor: pointer;
+}
+
+.listItem img {
+  display: inline-block;
+  width: 10%;
+  border-radius: 50%;
+}
+.achiveTask {
+  -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
+          filter: grayscale(100%);
+}
+.listItem .listText {
+  width: 65%;
+  vertical-align: baseline;
+  display: inline-block;
+}
+
+.listItem .listText p {
+  margin: 5px 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.listText  span {
+  color: #8f8d8b;
+  font-size: 12px;
+}
+
+.start {
+  vertical-align: baseline;
+  width: 22%;
+  display: inline-block;
+}
+
+/* 重写element */
+
+.el-tag {
+  margin-right: 10px;
+}
+.el-dialog__body {
+  padding-bottom: 0;
+}
+.el-dialog__footer{
+  padding-top:0;
+}
+.el-dialog span {
+  line-height: 20px;
+  vertical-align: top;
+}
+
+.el-dialog .el-rate ,.el-dialog .el-tag,.el-dialog .button-new-tag {
+  margin-top: 10px;
+}
+
+.el-tag +.el-tag {
+  margin-left: 5px;
+}
+
+.button-new-tag {
+  /* margin-left: 10px; */
+  height: 32px;
+  line-height: 30px;
+}
+
+.input-new-tag {
+  width: 90px;
+  margin-top:5px;
+  /* margin-left: 10px; */
+  vertical-align: baseline;
+}
