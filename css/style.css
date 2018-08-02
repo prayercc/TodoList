@@ -35,10 +35,8 @@ header {
 
 .listBox {
   display: -webkit-flex;
-  /* Safari */
   display: flex;
-  flex-flow:row wrap;
-  /* flex-wrap: wrap-reverse; */
+  flex-flow:row wrap-reverse;
   width: 80%;
   margin: 30px auto;
 }

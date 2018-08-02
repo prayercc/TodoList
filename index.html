@@ -23,22 +23,21 @@
     <header>TodoList</header>
     <div id="detail">
       <ul>
-        <li>全部: <span>{{allDone+'/'+allTodo}}</span></li>
-        <li>今日: <span>{{tasks.length}}</span></li>
-        <li>已完成: <span>{{haveDone}}</span></li>
-        <li>未完成: <span>{{tasks.length-haveDone}}</span></li>
-        <li>日期: <span>{{formatDate(new Date())}}</span></li>
+        <li>全部: <span>{{allTakachive+'/'+allTasklength}}</span></li>
+        <li>今日: <span>{{'+'+todayAdd}}</span></li>
+        <li>已完成: <span>{{'+'+todayAchive}}</span></li>
+        <li>未完成: <span>{{todayRemaining}}</span></li>
+        <li>日期: <span>{{formatDate(today)}}</span></li>
         <li>
           <el-button icon="el-icon-plus" circle @click="openDialog('add')"></el-button>
           <el-button icon="el-icon-view" circle @click="achiveEye = !achiveEye" :type="changeType"></el-button>
         </li>
-
       </ul>
     </div>
     <hr style="width:80%;color:#ddd;">
     <div class="listBox">
       <template v-for="(task,index) in tasks">
-        <div class="listItem" v-show="task.status ^ achiveEye">
+        <div class="listItem" v-show="task.status ^ achiveEye" >
           <img :src="'./img/icon/'+index%22+'.png'" alt="icon" :class={achiveTask:task.status}>
           <div class="listText">
             <el-badge :is-dot="task.level > 4" class="item">{{task.category}}</el-badge>
@@ -47,7 +46,7 @@
             <el-tag v-for="(tip,index) in task.tips" :type="tipStyle[index+1]" :key="index">{{tip}}</el-tag>
           </div>
           <div class="start">
-            <el-switch v-model="task.status" active-color="#13ce66" inactive-color="#ddd"></el-switch>
+            <el-switch v-model="task.status" active-color="#13ce66" inactive-color="#ddd" @change="saveData()"></el-switch>
             <el-rate v-model="task.level"  disabled text-color="#ff9900" score-template="{value}" :colors="colors"></el-rate>
           </div>
         </div>
@@ -105,11 +104,19 @@
         if(store.get()){
           this.tasks = store.get();
         }
+        this.initData();
       },
       data: function() {
         return {
-          visible: 'none',
+          //number display
+          allTasklength: 0,
+          allTakachive: 0,
+          todayAdd: 0,
+          todayAchive: 0,
+          todayRemaining: 0,
+          today: new Date(),
           achiveEye: 1,
+          //form add
           inputVisible: false,
           inputValue: '',
           colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
@@ -121,8 +128,6 @@
             level: 1
           },
           dialogTableVisible: false,
-          allDone: 12,
-          allTodo: 20,
           addTask: null,
           tipStyle: ['', 'info', 'primary', 'success', 'warning', 'danger'],
           tasks: [
@@ -134,24 +139,30 @@
               level: 5,
               status:  false
             }
-          ]
+          ],
+          mask: false
         }
       },
       computed: {
-        haveDone: function() {
-          let num = 0;
-          this.tasks.forEach(item => {
-            if (!!item.status) {
-              num++;
-            }
-          });
-          return num;
-        },
         changeType() {
           return this.achiveEye > 0 ? '' : 'info';
         }
       },
       methods: {
+        initData(){
+          this.allTasklength = this.tasks.length;
+          this.tasks.forEach(item => {
+              this.allTakachive += item.status;
+            if(this.formatDate(item.time) == this.formatDate(this.today)){
+              this.todayAdd ++;
+              this.todayAchive += item.status
+            }
+          });
+          this.todayRemaining = this.todayAdd-this.todayAchive;
+        },
+        saveData(){
+          store.set(this.tasks);
+        },
         formatDate(str) {
           let date = new Date(str);
           return date.toDateString();
@@ -186,7 +197,7 @@
           });
           this.dialogTableVisible = false;
           this.clearForm();
-          store.set(this.tasks);
+          this.saveData();
         },
         clearForm() {
           this.form = {

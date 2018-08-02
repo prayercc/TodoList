@@ -1,5 +1,5 @@
 # todoist
 
-a simple personal todolist>.<
+a simple personal todolist >.<
 
 
